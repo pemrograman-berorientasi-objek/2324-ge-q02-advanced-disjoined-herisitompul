@@ -1,6 +1,7 @@
 package academic.model;
 
 import java.util.ArrayList;
+
 /**
  * 
  * @author 12S22033 - Mickael Sitompul

@@ -299,6 +299,34 @@ public class Driver1 {
                     }
                 }
             }
+} else if (command.equals("find-the-best-student")) {
+    String academicYear = parts[1];
+    String semester = parts[2];
+    
+    Map<String, Double> studentGrades = new HashMap<>();
+    
+    for (Enrollment enrollment : enrollments) {
+        if (enrollment.getAcademicYear().equals(academicYear) && enrollment.getSemester().equals(semester)) {
+            String studentId = enrollment.getStudent();
+            double gradePoint = getGradePoint(enrollment.getGrade());
+            if (studentGrades.containsKey(studentId)) {
+                double currentGrade = studentGrades.get(studentId);
+                studentGrades.put(studentId, currentGrade + gradePoint);
+            } else {
+                studentGrades.put(studentId, gradePoint);
+            }
+        }
+    }
+    String bestStudentId = "";
+    double maxGrade = 0;
+    for (Map.Entry<String, Double> entry : studentGrades.entrySet()) {
+        if (entry.getValue() > maxGrade) {
+            maxGrade = entry.getValue();
+            bestStudentId = entry.getKey();
+        }
+    }
+    
+    System.out.println(bestStudentId + "|" + String.format("B/A"));
 }
 }
                 

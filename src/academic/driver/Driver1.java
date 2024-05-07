@@ -304,8 +304,7 @@ public class Driver1 {
     String semester = parts[2];
     
     Map<String, Double> studentGrades = new HashMap<>();
-    
-    for (Enrollment enrollment : enrollments) {
+        for (Enrollment enrollment : enrollments) {
         if (enrollment.getAcademicYear().equals(academicYear) && enrollment.getSemester().equals(semester)) {
             String studentId = enrollment.getStudent();
             double gradePoint = getGradePoint(enrollment.getGrade());
@@ -317,6 +316,7 @@ public class Driver1 {
             }
         }
     }
+    
     String bestStudentId = "";
     double maxGrade = 0;
     for (Map.Entry<String, Double> entry : studentGrades.entrySet()) {
@@ -326,8 +326,16 @@ public class Driver1 {
         }
     }
     
-    System.out.println(bestStudentId + "|" + String.format("B/A"));
-}
+    String bestStudentName = "";
+    for (Student student : students) {
+        if (student.getId().equals(bestStudentId)) {
+            bestStudentName = student.getName();
+            break;
+        }
+    }
+    
+
+    System.out.println(bestStudentId + "|" + String.format("B/A"));}
 }
                 
         sc.close();

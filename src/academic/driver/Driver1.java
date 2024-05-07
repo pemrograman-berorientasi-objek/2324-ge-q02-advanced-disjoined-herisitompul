@@ -21,7 +21,6 @@ public class Driver1 {
         ArrayList<Student> students = new ArrayList<>();
         ArrayList<Enrollment> enrollments = new ArrayList<>();
         ArrayList<CourseOpening> courseopen = new ArrayList<>();
-        ArrayList<Student> bestStudents = new ArrayList<>();
         
         while (sc.hasNextLine()) {
             String input = sc.nextLine();
@@ -247,11 +246,10 @@ public class Driver1 {
                                         kodeStrings[i] = enrollment.getCourse();
                                         gradeStrings[i] = enrollment.getGrade();
                                         break;
-                                    } 
-                                } 
-
+                                    }
+                                }
                             }
-                        } 
+                        }
 
                 // Menghapus duplikat dari kodeStrings dan gradeStrings
                 for(int i = 0; i < kodeStrings.length; i++) {
@@ -298,84 +296,15 @@ public class Driver1 {
                         System.out.println(enr.getCourse()+"|"+ enr.getStudent()+"|"+enr.getAcademicYear()+"|"+enr.getSemester()+"|"+enr.getGrade()+"("+enr.getBalikGrade()+")");
                     } else{
                         System.out.println(enr.getCourse()+"|"+ enr.getStudent()+"|"+enr.getAcademicYear()+"|"+enr.getSemester()+"|"+enr.getGrade());
-                    } 
+                    }
                 }
             }
-            } else if (command.equals("find-the-best-student")){
+}
+}
                 
-                String academicYear = parts[1];
-                String semester = parts[2];
-                double highestGPA = 0.0;
-                Student bestStudent = null;
-
-                for (Student student : students) {
-                    double gpa = calculateGPA(student.getId(), enrollments, courses);
-                    if (isApplicableStudent(student.getId(), academicYear, semester, enrollments) && gpa > highestGPA) {
-                        highestGPA = gpa;
-                        bestStudent = student;
-                    }
-                }
-
-                if (bestStudent != null) {
-                    //System.out.println("12S2202|B/A");
-                    System.out.println(bestStudent.getId() + "|" + "B/A");
-                // } else {
-                //     System.out.println("No eligible student found for " + academicYear + " " + semester);
-                // }
-            // } else if (command.equals("add-best-student")) {
-            //     String studentId = parts[1];
-            //     boolean alreadyExists = false;
-            //     for (Student student : bestStudents) {
-            //         if (student.getId().equals(studentId)) {
-            //             alreadyExists = true;
-            //             break;
-            //         }
-            //     }
-            //     // if (!alreadyExists) {
-            //     //     for (Student student : students) {
-            //     //         if (student.getId().equals(studentId)) {
-            //     //             bestStudents.add(student);
-            //     //             System.out.println("Added student " + student.getName() + " (" + student.getId() + ") to the best students list.");
-            //     //             break;
-            //     //         }
-            //     //     }
-            //     // } else {
-            //     //     System.out.println("Student with ID " + studentId + " is already in the best students list.");
-            //     // }
-            
-            //         }
-                }
-            }
-        }  
-                }
-                
-
-            private static double calculateGPA(String studentId, ArrayList<Enrollment> enrollments, ArrayList<Course> courses) {
-                double totalGradePoints = 0.0;
-                int totalCredits = 0;
-
-                for (Enrollment enrollment : enrollments) {
-                    if (enrollment.getStudent().equals(studentId) && !enrollment.getGrade().equals("None")) {
-                        Course course = getCourseById(enrollment.getCourse(), courses);
-                        if (course != null) {
-                            totalGradePoints += getGradePoint(enrollment.getGrade()) * Double.parseDouble(course.getCredit());
-                            totalCredits += Integer.parseInt(course.getCredit());
-                        }
-                    }
-                }
-
-                return totalCredits != 0 ? totalGradePoints / totalCredits : 0.0;
-            }
-
-            private static boolean isApplicableStudent(String studentId, String academicYear, String semester, ArrayList<Enrollment> enrollments) {
-                for (Enrollment enrollment : enrollments) {
-                    if (enrollment.getStudent().equals(studentId) && enrollment.getAcademicYear().equals(academicYear) && enrollment.getSemester().equals(semester)) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
+        sc.close();
+        printData(lecturers, courses, students, enrollments, courseopen);
+    }
 
     private static Course getCourseById(String courseId, ArrayList<Course> courses) {
         for (Course course : courses) {
@@ -384,7 +313,7 @@ public class Driver1 {
             }
         }
         return null;
-    } 
+    }
 
     private static double getGradePoint(String grade) {
         switch (grade) {
@@ -451,81 +380,3 @@ public class Driver1 {
         }
     }
 }
-
-// // Inside the main method
-
-// // List to store the best students
-// ArrayList<Student> bestStudents = new ArrayList<>();
-
-// // Inside the while loop, after the existing commands
-
-// else if (command.equals("find-the-best-student")) {
-//     String academicYear = parts[1];
-//     String semester = parts[2];
-//     double highestGPA = 0.0;
-//     Student bestStudent = null;
-
-//     for (Student student : students) {
-//         double gpa = calculateGPA(student.getId(), enrollments, courses);
-//         if (isApplicableStudent(student.getId(), academicYear, semester, enrollments) && gpa > highestGPA) {
-//             highestGPA = gpa;
-//             bestStudent = student;
-//         }
-//     }
-
-//     if (bestStudent != null) {
-//         System.out.println("Best student for " + academicYear + " " + semester + ": " + bestStudent.getName() + " (" + bestStudent.getId() + ")");
-//     } else {
-//         System.out.println("No eligible student found for " + academicYear + " " + semester);
-//     }
-// } else if (command.equals("add-best-student")) {
-//     String studentId = parts[1];
-//     // Check if the student already exists in the best students list
-//     boolean alreadyExists = false;
-//     for (Student student : bestStudents) {
-//         if (student.getId().equals(studentId)) {
-//             alreadyExists = true;
-//             break;
-//         }
-//     }
-//     // If not, add the student to the list
-//     if (!alreadyExists) {
-//         for (Student student : students) {
-//             if (student.getId().equals(studentId)) {
-//                 bestStudents.add(student);
-//                 System.out.println("Added student " + student.getName() + " (" + student.getId() + ") to the best students list.");
-//                 break;
-//             }
-//         }
-//     } else {
-//         System.out.println("Student with ID " + studentId + " is already in the best students list.");
-//     }
-// }
-
-// // Method to calculate GPA for a given student
-// private static double calculateGPA(String studentId, ArrayList<Enrollment> enrollments, ArrayList<Course> courses) {
-//     double totalGradePoints = 0.0;
-//     int totalCredits = 0;
-
-//     for (Enrollment enrollment : enrollments) {
-//         if (enrollment.getStudent().equals(studentId) && !enrollment.getGrade().equals("None")) {
-//             Course course = getCourseById(enrollment.getCourse(), courses);
-//             if (course != null) {
-//                 totalGradePoints += getGradePoint(enrollment.getGrade()) * Double.parseDouble(course.getCredit());
-//                 totalCredits += Integer.parseInt(course.getCredit());
-//             }
-//         }
-//     }
-
-//     return totalCredits != 0 ? totalGradePoints / totalCredits : 0.0;
-// }
-
-// // Method to check if a student is applicable for best student based on academic year and semester
-// private static boolean isApplicableStudent(String studentId, String academicYear, String semester, ArrayList<Enrollment> enrollments) {
-//     for (Enrollment enrollment : enrollments) {
-//         if (enrollment.getStudent().equals(studentId) && enrollment.getAcademicYear().equals(academicYear) && enrollment.getSemester().equals(semester)) {
-//             return true;
-//         }
-//     }
-//     return false;
-// }

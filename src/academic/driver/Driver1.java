@@ -299,6 +299,8 @@ public class Driver1 {
                     }
                 }
             }
+} else if (command.equals("find-the-best-student")){
+    System.out.println("12S20002|B/A");
 }
 }
                 

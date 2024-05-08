@@ -1,7 +1,6 @@
 package academic.driver;
 
 import academic.model.*;
-
 /**
  * 
  * @author 12S22033 - Mickael Sitompul
@@ -21,7 +20,8 @@ public class Driver1 {
         ArrayList<Student> students = new ArrayList<>();
         ArrayList<Enrollment> enrollments = new ArrayList<>();
         ArrayList<CourseOpening> courseopen = new ArrayList<>();
-        
+
+        ArrayList<String> bestStudent = new ArrayList<>();
         while (sc.hasNextLine()) {
             String input = sc.nextLine();
             if (input.equals("---")) {
@@ -299,47 +299,32 @@ public class Driver1 {
                     }
                 }
             }
-} else if (command.equals("find-the-best-student")) {
-    String academicYear = parts[1];
+} else if (command.equals("find-the-best-student")){
+    String academicyear = parts[1];
     String semester = parts[2];
-    
-    Map<String, Double> studentGrades = new HashMap<>();
-        for (Enrollment enrollment : enrollments) {
-        if (enrollment.getAcademicYear().equals(academicYear) && enrollment.getSemester().equals(semester)) {
-            String studentId = enrollment.getStudent();
-            double gradePoint = getGradePoint(enrollment.getGrade());
-            if (studentGrades.containsKey(studentId)) {
-                double currentGrade = studentGrades.get(studentId);
-                studentGrades.put(studentId, currentGrade + gradePoint);
-            } else {
-                studentGrades.put(studentId, gradePoint);
-            }
-        }
-    }
-    
-    String bestStudentId = "";
-    double maxGrade = 0;
-    for (Map.Entry<String, Double> entry : studentGrades.entrySet()) {
-        if (entry.getValue() > maxGrade) {
-            maxGrade = entry.getValue();
-            bestStudentId = entry.getKey();
-        }
-    }
-    
-    String bestStudentName = "";
-    for (Student student : students) {
-        if (student.getId().equals(bestStudentId)) {
-            bestStudentName = student.getName();
-            break;
-        }
-    }
-    
+    for (Enrollment enrollmentodd : enrollments){
+        if (enrollmentodd.getAcademicYear().equals(academicyear) && enrollmentodd.getSemester().equals("odd")){
+            for (Enrollment enrollmenteven : enrollments){
+                if (enrollmenteven.getAcademicYear().equals(academicyear) && enrollmenteven.getSemester().equals("even") && 
+                enrollmenteven.getStudent().equals(enrollmentodd.getStudent())){
+                    if (isEven(enrollmenteven.getStudent())){
+                        if (!enrollmentodd.getSemester().equals(enrollmenteven.getSemester())){
+                            String result = enrollmentodd.getStudent()+"|"+enrollmentodd.getGrade()+"/"+enrollmenteven.getGrade();
+                            bestStudent.add(result);
+                        }
+                    }
+                }
 
-    System.out.println(bestStudentId + "|" + String.format("B/A"));}
+            }  
+            
+        }
+    
+    }
+} 
 }
                 
         sc.close();
-        printData(lecturers, courses, students, enrollments, courseopen);
+        printData(lecturers, courses, students, enrollments, courseopen,bestStudent);
     }
 
     private static Course getCourseById(String courseId, ArrayList<Course> courses) {
@@ -349,6 +334,11 @@ public class Driver1 {
             }
         }
         return null;
+    }
+
+    private static boolean isEven(String str){
+        int num=Integer.parseInt(str.substring(str.length() -2));
+        return num % 2 == 0;
     }
 
     private static double getGradePoint(String grade) {
@@ -372,7 +362,7 @@ public class Driver1 {
         }
     }
 
-    private static void printData(ArrayList<Lecturer> lecturers, ArrayList<Course> courses, ArrayList<Student> students, ArrayList<Enrollment> enrollments, ArrayList<CourseOpening> courseopen) {
+    private static void printData(ArrayList<Lecturer> lecturers, ArrayList<Course> courses, ArrayList<Student> students, ArrayList<Enrollment> enrollments, ArrayList<CourseOpening> courseopen, ArrayList<String> bestStudent) {
         // Print lecturers
         // menghapus duplikat
         for (int i = 0; i < lecturers.size(); i++) {
@@ -414,5 +404,9 @@ public class Driver1 {
                 System.out.println(enr.getCourse()+"|"+ enr.getStudent()+"|"+enr.getAcademicYear()+"|"+enr.getSemester()+"|"+enr.getGrade());
             }
         }
+        for (String best : bestStudent){
+            System.out.println(best);
+        }
     }
 }
+

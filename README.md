@@ -53,7 +53,7 @@ Perlu diperhatikan bahwa pada dosen pengampu ditulis dalam bentuk inisial, dan d
 Pembukaan mata kuliah (```course opening```) hanya dapat dilakukan bila mata kuliah (```course```) dan dosen (```lecturer```) terkait sudah terlebih dahulu terdaftar di dalam simulator.
 
 ### Find the best student ###
-Anda perlu menambkan fitur baru yaitu mencari mahasiswa terbaik berdasarkan performa di semester ganjil dan genap. jika ada terdapat kesamaan diantara mahasiswa, maka yang diambil adalah dengan nim Genap dari semester genap.
+Anda perlu menambakan fitur baru yaitu mencari mahasiswa terbaik berdasarkan performa di semester ganjil dan genap. jika ada terdapat kesamaan diantara mahasiswa, maka yang diambil adalah dengan nim Genap dari semester genap.
 ```bash
 find-the-best-student#<academic-year>#<semester>
 ```
